@@ -5,7 +5,7 @@ Plugin URI: http://www.hardeepasrani.com/
 Description: A lightweight plugin to add a third pricing table to Hestia Pro.
 Author: Hardeep Asrani
 Author URI: http://www.hardeepasrani.com/
-Version: 1.0
+Version: 1.1
 */
 
 if ( ! function_exists( 'hestia_pricing' ) ) :
@@ -157,6 +157,51 @@ endif;
  */
 function hestia_pricing_customize_register_three( $wp_customize ) {
 
+	$wp_customize->get_control('hestia_pricing_tabs')->tabs=array(
+		'general' => array(
+			'nicename' => esc_html__( 'General', 'hestia-pro' ),
+			'icon'     => 'cogs',
+			'controls' => array(
+				'hestia_pricing_hide',
+				'hestia_pricing_title',
+				'hestia_pricing_subtitle',
+			),
+		),
+		'first'   => array(
+			'nicename' => esc_html__( 'First', 'hestia-pro' ),
+			'icon'     => 'table',
+			'controls' => array(
+				'hestia_pricing_table_one_title',
+				'hestia_pricing_table_one_price',
+				'hestia_pricing_table_one_features',
+				'hestia_pricing_table_one_link',
+				'hestia_pricing_table_one_text',
+			),
+		),
+		'second'  => array(
+			'nicename' => esc_html__( 'Second', 'hestia-pro' ),
+			'icon'     => 'table',
+			'controls' => array(
+				'hestia_pricing_table_two_title',
+				'hestia_pricing_table_two_price',
+				'hestia_pricing_table_two_features',
+				'hestia_pricing_table_two_link',
+				'hestia_pricing_table_two_text',
+			),
+		),
+		'third'  => array(
+			'nicename' => esc_html__( 'Third', 'hestia-pro' ),
+			'icon'     => 'table',
+			'controls' => array(
+				'hestia_pricing_table_three_title',
+				'hestia_pricing_table_three_price',
+				'hestia_pricing_table_three_features',
+				'hestia_pricing_table_three_link',
+				'hestia_pricing_table_three_text',
+			),
+		)
+	);
+
 	$wp_customize->add_setting( 'hestia_pricing_table_three_title', array(
 		'default' => esc_html__( 'Premium Package', 'hestia-pro' ),
 		'sanitize_callback' => 'sanitize_text_field',
@@ -245,7 +290,7 @@ function hestia_pricing_customize_register_three( $wp_customize ) {
 
 }
 
-add_action( 'customize_register', 'hestia_pricing_customize_register_three' );
+add_action( 'customize_register', 'hestia_pricing_customize_register_three', 99 );
 
 /**
  * Render callback for pricing section third table price selective refresh
